@@ -3,17 +3,23 @@ import { useStorage } from "@vueuse/core"
 import type { Gmail } from '../types'
 
 export const gmailData = defineStore({
-  id: 'gmail-data',
+    id: 'gmail-data',
 
-  state: () => ({
-    gmails: useStorage<Gmail[]>("gmails", []),
-  }),
+    state: () => ({
+      gmails: useStorage<Gmail[]>("gmails", []),
+    }),
 
-  getters: {
-    
-  },
+    getters: {
+      
+    },
 
-  actions: {
-    
-  }
+    actions: {
+      makeEmailRead(readEmail: Gmail) {
+          readEmail.read = true
+      },
+
+      archiveEmail(archivedEmail: Gmail) {
+        archivedEmail.archived = true
+    }
+    }
 })

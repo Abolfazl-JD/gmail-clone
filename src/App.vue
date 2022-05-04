@@ -13,8 +13,8 @@ const gmailBox = gmailData()
             class="h-10"
             v-for="email in gmailBox.gmails"
             :key="email.id"
-            :class="['cursor-pointer', email.read ? 'bg-gray-300' : '']"
-            @click="email.read = true">
+            :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
+            @click="gmailBox.makeEmailRead(email)">
                 <td class="table-items">
                     <input type="checkbox">
                 </td>
@@ -24,7 +24,7 @@ const gmailBox = gmailData()
                 </td>
                 <td class="table-items"> {{ email.sentAt }} </td>
                 <td class="table-items w-120px">
-                    <button @click="email.archived = true">Archive</button>
+                    <button @click="gmailBox.archiveEmail(email)">Archive</button>
                 </td>
             </tr>
         </tbody>
