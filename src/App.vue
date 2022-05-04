@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 // packages
 import { format } from 'date-fns'
 // stores
 import { gmailData } from './stores/mainData'
 const gmailBox = gmailData()
 
+const sortedGmails = computed(() => {
+    return gmailBox.gmails.sort((e1, e2) => {
+        return e1.sentAt < e2.sentAt ? 1 : -1
+    })
+})
+
+const unArchivedGmails = computed(() => sortedGmails.value.filter(mail => !mail.archived))
 </script>
 
 <template>
@@ -14,7 +22,7 @@ const gmailBox = gmailData()
         <tbody>
             <tr 
             class="h-10"
-            v-for="email in gmailBox.gmails"
+            v-for="email in unArchivedGmails"
             :key="email.id"
             :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
             @click="gmailBox.makeEmailRead(email)">
