@@ -4,8 +4,7 @@ export default defineConfig({
   darkMode: 'class',
     theme: {},
     shortcuts: {
-        'btn': 'py-2 px-4 font-semibold rounded-lg shadow-md',
-        'btn-green': 'text-white bg-green-500 hover:bg-green-700',
+        'table-items': 'p-5px text-left border-b border-black',
       },
   plugins: [],
 })
