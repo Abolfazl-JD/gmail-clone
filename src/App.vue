@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// packages
+import { format } from 'date-fns'
+// stores
 import { gmailData } from './stores/mainData'
 const gmailBox = gmailData()
 
@@ -22,8 +25,8 @@ const gmailBox = gmailData()
                 <td class="table-items">
                     <p class="overflow-y-hidden m-0 max-h-1.2em"><strong> {{ email.subject.slice(0 , 40) }} ... </strong> - {{ email.body }}</p>
                 </td>
-                <td class="table-items"> {{ email.sentAt }} </td>
-                <td class="table-items w-120px">
+                <td class="table-items w-120px"> {{ format(new Date(email.sentAt), 'MMM do yyyy') }} </td>
+                <td class="table-items">
                     <button @click="gmailBox.archiveEmail(email)">Archive</button>
                 </td>
             </tr>
