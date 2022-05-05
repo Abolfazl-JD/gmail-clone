@@ -5,7 +5,7 @@
         <tbody>
             <tr 
             class="h-14"
-            v-for="index of 10" :key="index">
+            v-for="index of 11" :key="index">
                 <td class="table-items w-9">
                     <p class="w-full skeleton h-7 rounded-sm"></p>
                 </td>
