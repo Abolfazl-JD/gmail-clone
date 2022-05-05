@@ -9,12 +9,13 @@ await new Promise(resolve => setTimeout(resolve , 5000))
 
 const gmailBox = gmailData()
 
+await gmailBox.getGmailData()
+
 const sortedGmails = computed(() => {
     return gmailBox.gmails.sort((e1, e2) => {
         return e1.sentAt < e2.sentAt ? 1 : -1
     })
 })
-
 const unArchivedGmails = computed(() => sortedGmails.value.filter(mail => !mail.archived))
 </script>
 

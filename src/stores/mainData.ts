@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
-import { useStorage } from "@vueuse/core"
 import type { Gmail } from '../types'
+import axios from 'axios'
 
 export const gmailData = defineStore({
     id: 'gmail-data',
 
     state: () => ({
-      gmails: useStorage<Gmail[]>("gmails", []),
+      gmails: [] as Gmail[],
     }),
 
     getters: {
@@ -15,11 +15,23 @@ export const gmailData = defineStore({
 
     actions: {
       makeEmailRead(readEmail: Gmail) {
-          readEmail.read = true
+        readEmail.read = true
+        this.updateGmailData(readEmail)
       },
 
       archiveEmail(archivedEmail: Gmail) {
         archivedEmail.archived = true
-    }
+        this.updateGmailData(archivedEmail)
+      },
+
+      async getGmailData() {
+        await axios.get('http://localhost:3000/emails').then(res => {
+          this.gmails = res.data
+        })
+      },
+
+       updateGmailData(updatedEmail : Gmail) {
+         axios.put(`http://localhost:3000/emails/${updatedEmail.id}`, updatedEmail)
+      }
     }
 })
