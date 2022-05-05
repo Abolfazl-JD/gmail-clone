@@ -4,11 +4,9 @@ import { computed } from 'vue'
 import { format } from 'date-fns'
 // stores
 import { gmailData } from '../stores/mainData'
-
-await new Promise(resolve => setTimeout(resolve , 5000))
-
 const gmailBox = gmailData()
 
+// get data from database 
 await gmailBox.getGmailData()
 
 const sortedGmails = computed(() => {
