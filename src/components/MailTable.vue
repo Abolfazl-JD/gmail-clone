@@ -4,6 +4,9 @@ import { computed } from 'vue'
 import { format } from 'date-fns'
 // stores
 import { gmailData } from '../stores/mainData'
+
+await new Promise(resolve => setTimeout(resolve , 5000))
+
 const gmailBox = gmailData()
 
 const sortedGmails = computed(() => {
@@ -16,8 +19,6 @@ const unArchivedGmails = computed(() => sortedGmails.value.filter(mail => !mail.
 </script>
 
 <template>
-    <h1 class="text-2xl mb-5">Vmail box</h1>
-
     <table class="max-w-1000px m-auto border-collapse border-t-2 border-black">
         <tbody>
             <tr 
