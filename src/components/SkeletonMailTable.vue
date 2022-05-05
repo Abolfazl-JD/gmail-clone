@@ -7,19 +7,19 @@
             class="h-14"
             v-for="index of 10" :key="index">
                 <td class="table-items w-9">
-                    <p class="skeleton-small"></p>
+                    <p class="w-full skeleton h-7 rounded-sm"></p>
                 </td>
                 <td class="table-items w-1/6">
-                    <p class="skeleton-text"></p>
+                    <p class="w-full skeleton h-5 rounded-lg"></p>
                 </td>
                 <td class="table-items w-7/12">
-                    <p class="skeleton-text"></p>
+                    <p class="w-full skeleton h-5 rounded-lg"></p>
                 </td>
                 <td class="table-items w-120px">
-                    <p class="skeleton-text"></p>
+                    <p class="w-full skeleton h-5 rounded-lg"></p>
                 </td>
                 <td class="table-items w-18">
-                    <p class="skeleton-small"></p>
+                    <p class="w-full skeleton h-7 rounded-sm"></p>
                 </td>
             </tr>
         </tbody>
