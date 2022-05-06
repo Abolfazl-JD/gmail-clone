@@ -31,36 +31,6 @@
   animation: skeleton-loading 0.5s linear infinite alternate;
 }
 
-.skeleton-img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-}
-
-.skeleton-subtitle {
-  width: 30%;
-  height: 1.2rem;
-  margin: 0 auto 5px;
-}
-
-.skeleton-title {
-  width: 20%;
-  height: 1.3rem;
-  margin: 0 auto 20px;
-}
-
-.skeleton-text {
-  width: 100%;
-  height: 0.5rem;
-  margin-bottom: 0.25rem;
-  border-radius: 0.125rem;
-}
-
-.skeleton-text:last-child {
-  width: 80%;
-  margin-bottom: 0;
-}
-
 @keyframes skeleton-loading {
   0% {
     background-color: hsl(200, 20%, 75%);
