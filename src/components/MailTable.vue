@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 // packages
 import { format } from 'date-fns'
+// Types
+import type { Gmail } from '../types'
+// Components
+import MailModal from './MailModal.vue'
 // stores
 import { gmailData } from '../stores/mainData'
 const gmailBox = gmailData()
@@ -15,6 +19,12 @@ const sortedGmails = computed(() => {
     })
 })
 const unArchivedGmails = computed(() => sortedGmails.value.filter(mail => !mail.archived))
+
+const openedGmail = ref<Gmail | null>(null)
+const openMail = (mail : Gmail) => {
+    openedGmail.value = mail
+    gmailBox.makeEmailRead(mail)
+}
 </script>
 
 <template>
@@ -25,7 +35,7 @@ const unArchivedGmails = computed(() => sortedGmails.value.filter(mail => !mail.
             v-for="email in unArchivedGmails"
             :key="email.id"
             :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
-            @click="gmailBox.makeEmailRead(email)">
+            @click="openMail(email)">
                 <td class="table-items">
                     <input type="checkbox">
                 </td>
@@ -44,4 +54,8 @@ const unArchivedGmails = computed(() => sortedGmails.value.filter(mail => !mail.
             </tr>
         </tbody>
     </table>
+    <MailModal 
+    v-if="openedGmail"
+    v-bind="openedGmail"
+    @close-modal="openedGmail = null" />
 </template>
