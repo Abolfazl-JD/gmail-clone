@@ -34,7 +34,7 @@ const archiveMail = () => {
     emit('close-modal')
 }
 
-const { e, r, Escape } = useMagicKeys()
+const { e, r, k, Escape } = useMagicKeys()
 
 whenever(Escape, () => {
   emit('close-modal')
@@ -42,6 +42,7 @@ whenever(Escape, () => {
 
 whenever(e, () => archiveMail())
 whenever(r, () => gmailBox.toggleEmailRead(props.email, !props.email.read))
+whenever(k, () => {})
 
 </script>
 
@@ -55,8 +56,8 @@ whenever(r, () => gmailBox.toggleEmailRead(props.email, !props.email.read))
                 <button class="functional-btn" @click="gmailBox.toggleEmailRead(email, !email.read)">
                     {{ email.read ? 'Mark unread' : 'Mark read' }} (r) 
                 </button>
-                <button class="functional-btn"> Older </button>
-                <button class="functional-btn"> Newer </button>
+                <button class="functional-btn"> Older (j) </button>
+                <button class="functional-btn"> Newer (k)</button>
             </div>
             <div class="email-display px-10 py-5">
                 <h2 class="mb-5 text-lg">
