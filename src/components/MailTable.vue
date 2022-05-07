@@ -23,7 +23,7 @@ const unArchivedGmails = computed(() => sortedGmails.value.filter(mail => !mail.
 const openedGmail = ref<Gmail | null>(null)
 const openMail = (mail : Gmail) => {
     openedGmail.value = mail
-    gmailBox.makeEmailRead(mail)
+    gmailBox.toggleEmailRead(mail, true)
 }
 </script>
 

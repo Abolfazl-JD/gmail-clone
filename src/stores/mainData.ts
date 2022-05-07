@@ -14,8 +14,8 @@ export const gmailData = defineStore({
     },
 
     actions: {
-      makeEmailRead(readEmail: Gmail) {
-        readEmail.read = true
+      toggleEmailRead(readEmail: Gmail, read : boolean) {
+        readEmail.read = read
         this.updateGmailData(readEmail)
       },
 
