@@ -25,6 +25,10 @@ const openMail = (mail : Gmail) => {
     openedGmail.value = mail
     gmailBox.toggleEmailRead(mail, true)
 }
+
+const changeOpenedEmail = (sentMail : Gmail | null) => {
+    openedGmail.value = sentMail
+}
 </script>
 
 <template>
@@ -57,5 +61,5 @@ const openMail = (mail : Gmail) => {
     <MailModal 
     v-if="openedGmail"
     :email="openedGmail"
-    @close-modal="openedGmail = null" />
+    @change-opened-email="changeOpenedEmail" />
 </template>
