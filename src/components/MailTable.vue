@@ -56,6 +56,6 @@ const openMail = (mail : Gmail) => {
     </table>
     <MailModal 
     v-if="openedGmail"
-    v-bind="openedGmail"
+    :email="openedGmail"
     @close-modal="openedGmail = null" />
 </template>
