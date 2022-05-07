@@ -21,13 +21,9 @@ const sortedGmails = computed(() => {
 const unArchivedGmails = computed(() => sortedGmails.value.filter(mail => !mail.archived))
 
 const openedGmail = ref<Gmail | null>(null)
-const openMail = (mail : Gmail) => {
+const changeOpenedEmail = (mail : Gmail | null) => {
+    if(mail) gmailBox.toggleEmailRead(mail, true)
     openedGmail.value = mail
-    gmailBox.toggleEmailRead(mail, true)
-}
-
-const changeOpenedEmail = (sentMail : Gmail | null) => {
-    openedGmail.value = sentMail
 }
 </script>
 
@@ -39,7 +35,7 @@ const changeOpenedEmail = (sentMail : Gmail | null) => {
             v-for="email in unArchivedGmails"
             :key="email.id"
             :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
-            @click="openMail(email)">
+            @click="changeOpenedEmail(email)">
                 <td class="table-items">
                     <input type="checkbox">
                 </td>
