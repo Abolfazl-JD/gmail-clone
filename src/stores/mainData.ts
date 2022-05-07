@@ -10,7 +10,14 @@ export const gmailData = defineStore({
     }),
 
     getters: {
-      
+      sortedGmails(state){
+         return state.gmails.sort((e1, e2) => {
+             return e1.sentAt < e2.sentAt ? 1 : -1
+        })
+      },
+      unArchivedGmails(): Gmail[] {
+        return this.sortedGmails.filter(mail => !mail.archived)
+      }
     },
 
     actions: {

@@ -13,13 +13,6 @@ const gmailBox = gmailData()
 // get data from database 
 await gmailBox.getGmailData()
 
-const sortedGmails = computed(() => {
-    return gmailBox.gmails.sort((e1, e2) => {
-        return e1.sentAt < e2.sentAt ? 1 : -1
-    })
-})
-const unArchivedGmails = computed(() => sortedGmails.value.filter(mail => !mail.archived))
-
 const openedGmail = ref<Gmail | null>(null)
 const changeOpenedEmail = (mail : Gmail | null) => {
     if(mail) gmailBox.toggleEmailRead(mail, true)
@@ -32,7 +25,7 @@ const changeOpenedEmail = (mail : Gmail | null) => {
         <tbody>
             <tr 
             class="h-14"
-            v-for="email in unArchivedGmails"
+            v-for="email in gmailBox.unArchivedGmails"
             :key="email.id"
             :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
             @click="changeOpenedEmail(email)">
