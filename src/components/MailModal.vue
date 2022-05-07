@@ -6,7 +6,7 @@ import { useMagicKeys , whenever  } from '@vueuse/core'
 import { gmailData } from '../stores/mainData'
 const gmailBox = gmailData()
 
-interface propsItems{
+interface Gmail{
     id: number
     from: string,
     subject: string,
@@ -17,14 +17,14 @@ interface propsItems{
 }
 
 interface propsType{
-    email : propsItems
+    email : Gmail
 }
 
 const props = defineProps<propsType>()
 
 
 interface EmitType{
-    (event : 'change-opened-email' , mailValue : propsItems | null) : void
+    (event : 'change-opened-email' , mailValue : Gmail | null) : void
 }
 
 const emit = defineEmits<EmitType>()
@@ -37,7 +37,7 @@ const archiveMail = () => {
 const changeOpenedMail = (condition : 'pre' | 'next') => {
     const emailIndex = gmailBox.gmails.indexOf(props.email)
     // email that should be replaced with openedGmail in  parent component (mailTable.vue)
-    let sentMail : propsItems | null = null
+    let sentMail : Gmail | null = null
     // If it's pre, check that current openedMail isn't the first one
     if(condition === 'pre' && emailIndex) sentMail = gmailBox.gmails[emailIndex - 1] 
     // It it's next, check that current openedMail isn't the last one
