@@ -36,7 +36,7 @@ const archiveMail = () => {
 
 const changeOpenedMail = (condition : 'pre' | 'next') => {
     const emailIndex = gmailBox.gmails.indexOf(props.email)
-    // email that should be replaced with openedGmail
+    // email that should be replaced with openedGmail in  parent component (mailTable.vue)
     let sentMail : propsItems | null = null
     // If it's pre, check that current openedMail isn't the first one
     if(condition === 'pre' && emailIndex) sentMail = gmailBox.gmails[emailIndex - 1] 
