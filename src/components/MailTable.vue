@@ -42,7 +42,7 @@ const changeOpenedEmail = (mail : Gmail | null) => {
                 <td class="table-items">
                     <button 
                     class="bg-gray-500 px-2 py-1 text-white"
-                    @click="gmailBox.archiveEmail(email)">Archive</button>
+                    @click.stop="gmailBox.archiveEmail(email)">Archive</button>
                 </td>
             </tr>
         </tbody>
