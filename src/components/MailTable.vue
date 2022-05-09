@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 // packages
 import { format } from 'date-fns'
 // Types
@@ -18,6 +18,7 @@ const changeOpenedEmail = (mail : Gmail | null) => {
     if(mail) gmailBox.toggleEmailRead(mail, true)
     openedGmail.value = mail
 }
+
 </script>
 
 <template>
@@ -30,7 +31,9 @@ const changeOpenedEmail = (mail : Gmail | null) => {
             :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
             @click="changeOpenedEmail(email)">
                 <td class="table-items">
-                    <input type="checkbox">
+                    <input type="checkbox"
+                    @click.stop="gmailBox.toggleSelectEmail(email)"
+                    :checked="email.selected">
                 </td>
                 <td class="table-items"> {{ email.from }}</td>
                 <td class="table-items">

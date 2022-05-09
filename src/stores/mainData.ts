@@ -15,8 +15,13 @@ export const gmailData = defineStore({
              return e1.sentAt < e2.sentAt ? 1 : -1
         })
       },
+
       unArchivedGmails(): Gmail[] {
         return this.sortedGmails.filter(mail => !mail.archived)
+      },
+
+      selectedGmails(state) {
+        return state.gmails.filter(mail => mail.selected)
       }
     },
 
@@ -29,6 +34,11 @@ export const gmailData = defineStore({
       archiveEmail(archivedEmail: Gmail) {
         archivedEmail.archived = true
         this.updateGmailData(archivedEmail)
+      },
+
+      toggleSelectEmail(selectedMail: Gmail) {
+        selectedMail.selected = !selectedMail.selected
+        this.updateGmailData(selectedMail)
       },
 
       async getGmailData() {

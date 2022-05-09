@@ -8,11 +8,12 @@ const gmailBox = gmailData()
 
 interface Gmail{
     id: number
-    from: string,
-    subject: string,
+    from: string
+    subject: string
     body: string
-    sentAt: string,
-    archived: boolean,
+    sentAt: string
+    archived: boolean
+    selected : boolean
     read: boolean  
 }
 
@@ -47,10 +48,7 @@ const changeOpenedMail = (condition : 'pre' | 'next') => {
 
 const { e, r, k, Escape, j } = useMagicKeys()
 
-whenever(Escape, () => {
-    emit('change-opened-email' , null)
-})
-
+whenever(Escape, () => emit('change-opened-email' , null))
 whenever(e, () => archiveMail())
 whenever(r, () => gmailBox.toggleEmailRead(props.email, !props.email.read))
 whenever(k, () => changeOpenedMail('next'))
