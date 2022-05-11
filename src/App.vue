@@ -2,15 +2,10 @@
 // components
 import MailTable from './components/MailTable.vue'
 import SkeletonMailTable from './components/SkeletonMailTable.vue'
-import BulkActionBar from './components/BulkActionBar.vue'
-// stores
-import { gmailData } from './stores/mainData'
-const gmailBox = gmailData()
 </script>
 
 <template>
     <h1 class="text-2xl mb-5">Vmail box</h1>
-    <BulkActionBar :gmails="gmailBox.gmails" />
     <Suspense>
         <template #default>
             <MailTable />

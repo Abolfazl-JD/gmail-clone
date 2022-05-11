@@ -6,6 +6,7 @@ import { format } from 'date-fns'
 import type { Gmail } from '../types'
 // Components
 import MailModal from './MailModal.vue'
+import BulkActionBar from './BulkActionBar.vue'
 // stores
 import { gmailData } from '../stores/mainData'
 const gmailBox = gmailData()
@@ -22,6 +23,7 @@ const changeOpenedEmail = (mail : Gmail | null) => {
 </script>
 
 <template>
+    <BulkActionBar :gmails="gmailBox.gmails" />
     <table class="max-w-1000px m-auto border-collapse border-t-2 border-black">
         <tbody>
             <tr 
