@@ -31,7 +31,10 @@ const changeOpenedEmail = (mail : Gmail | null) => {
             :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
             @click="changeOpenedEmail(email)">
                 <td class="table-items">
-                    <input type="checkbox">
+                    <input 
+                    type="checkbox"
+                    @click.stop="gmailBox.toggleEmailSelected(email)"
+                    :checked="gmailBox.selectedGmails.has(email)">
                 </td>
                 <td class="table-items"> {{ email.from }}</td>
                 <td class="table-items">

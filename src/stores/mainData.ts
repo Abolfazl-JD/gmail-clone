@@ -7,6 +7,7 @@ export const gmailData = defineStore({
 
     state: () => ({
       gmails: [] as Gmail[],
+      selectedGmails : new Set() as Set<Gmail>
     }),
 
     getters: {
@@ -30,6 +31,11 @@ export const gmailData = defineStore({
       archiveEmail(archivedEmail: Gmail) {
         archivedEmail.archived = true
         this.updateGmailData(archivedEmail)
+      },
+
+      toggleEmailSelected(email: Gmail) {
+        if (this.selectedGmails.has(email)) this.selectedGmails.delete(email)
+        else this.selectedGmails.add(email)
       },
 
       async getGmailData() {
