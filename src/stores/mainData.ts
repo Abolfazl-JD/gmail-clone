@@ -48,6 +48,14 @@ export const gmailData = defineStore({
         }
       },
 
+      selectedOperation(fn : (e : Gmail) => void) {
+        for (const gmail of this.selectedGmails) {
+          fn(gmail)
+          this.updateGmailData(gmail)
+        }
+        this.unSelectGmails()
+      },
+
       async getGmailData() {
         await axios.get('http://localhost:3000/emails').then(res => {
           this.gmails = res.data
