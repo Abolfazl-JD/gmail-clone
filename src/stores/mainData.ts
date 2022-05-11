@@ -20,10 +20,6 @@ export const gmailData = defineStore({
       unArchivedGmails(): Gmail[] {
         return this.sortedGmails.filter(mail => !mail.archived)
       },
-
-      totalGmails: (state) => state.gmails.length,
-      
-      selectedGmailsSize : (state) => state.selectedGmails.size
     },
 
     actions: {
