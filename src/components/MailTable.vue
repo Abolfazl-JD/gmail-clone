@@ -7,6 +7,7 @@ import type { Gmail } from '../types'
 // Components
 import MailModal from './MailModal.vue'
 import BulkActionBar from './BulkActionBar.vue'
+import WindowChooser from './WindowChooser.vue'
 // stores
 import { gmailData } from '../stores/mainData'
 const gmailBox = gmailData()
@@ -20,9 +21,15 @@ const changeOpenedEmail = (mail : Gmail | null) => {
     openedGmail.value = mail
 }
 
+const windowType = ref<'inbox' | 'archived'>('inbox')
+const changeStatus = (status : 'inbox' | 'archived') => {
+    windowType.value = status
+}
+
 </script>
 
 <template>
+    <WindowChooser :windowType="windowType" @change-window-status="changeStatus" />
     <BulkActionBar :gmails="gmailBox.gmails" />
     <table class="max-w-1000px m-auto border-collapse border-t-2 border-black">
         <tbody>
