@@ -13,7 +13,6 @@ interface Gmail{
     body: string
     sentAt: string
     archived: boolean
-    selected : boolean
     read: boolean  
 }
 
