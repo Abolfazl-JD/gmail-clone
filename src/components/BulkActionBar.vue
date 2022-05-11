@@ -15,6 +15,10 @@ const allSelected = computed(() => gmailBox.selectedGmails.size === props.gmails
 
 const bulkSelect = () => allSelected.value ? gmailBox.unSelectGmails() : gmailBox.selectMultipleGmails()
 
+const disableMarkRead = computed(() => [...gmailBox.selectedGmails].every(email => email.read))
+const disableMarkUnread = computed(() => [...gmailBox.selectedGmails].every(email => !email.read))
+const disableArchived = computed(() => !gmailBox.selectedGmails.size)
+
 </script>
 
 <template>
@@ -27,9 +31,24 @@ const bulkSelect = () => allSelected.value ? gmailBox.unSelectGmails() : gmailBo
             @click="bulkSelect">
         </span>
         <span class="buttons ml-2">
-            <button class="functional-btn" @click="gmailBox.selectedOperation(e => e.read = true)">Mark read</button>
-            <button class="functional-btn" @click="gmailBox.selectedOperation(e => e.read = false)">Mark Unread</button>
-            <button class="functional-btn" @click="gmailBox.selectedOperation(e => e.archived = true)">Archive</button>
+            <button 
+            class="functional-btn" 
+            @click="gmailBox.selectedOperation(e => e.read = true)"
+            :disabled="disableMarkRead">
+                Mark read
+            </button>
+            <button 
+            class="functional-btn" 
+            @click="gmailBox.selectedOperation(e => e.read = false)"
+            :disabled="disableMarkUnread">
+                Mark Unread
+            </button>
+            <button 
+            class="functional-btn" 
+            @click="gmailBox.selectedOperation(e => e.archived = true)"
+            :disabled="disableArchived">
+                Archive
+            </button>
         </span>
     </div>
 </template>
