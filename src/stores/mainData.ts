@@ -7,7 +7,8 @@ export const gmailData = defineStore({
 
     state: () => ({
       gmails: [] as Gmail[],
-      selectedGmails : new Set() as Set<Gmail>
+      selectedGmails: new Set() as Set<Gmail>,
+      windowType : 'inbox' as 'archived' | 'inbox'
     }),
 
     getters: {
@@ -20,6 +21,14 @@ export const gmailData = defineStore({
       unArchivedGmails(): Gmail[] {
         return this.sortedGmails.filter(mail => !mail.archived)
       },
+
+      archivedGmails(): Gmail[] {
+        return this.sortedGmails.filter(mail => mail.archived)
+      },
+
+      filteredGmails(state) : Gmail[] {
+        return state.windowType === 'inbox' ? this.unArchivedGmails : this.archivedGmails
+      }
     },
 
     actions: {
@@ -43,7 +52,7 @@ export const gmailData = defineStore({
       },
 
       selectMultipleGmails() {
-        for (const gmail of this.gmails) {
+        for (const gmail of this.filteredGmails) {
           this.selectedGmails.add(gmail)
         }
       },
@@ -53,6 +62,11 @@ export const gmailData = defineStore({
           fn(gmail)
           this.updateGmailData(gmail)
         }
+        this.unSelectGmails()
+      },
+      
+      changeStatus (status : 'inbox' | 'archived') {
+        this.windowType = status
         this.unSelectGmails()
       },
 

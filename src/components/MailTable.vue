@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 // packages
 import { format } from 'date-fns'
 // Types
@@ -21,21 +21,16 @@ const changeOpenedEmail = (mail : Gmail | null) => {
     openedGmail.value = mail
 }
 
-const windowType = ref<'inbox' | 'archived'>('inbox')
-const changeStatus = (status : 'inbox' | 'archived') => {
-    windowType.value = status
-}
-
 </script>
 
 <template>
-    <WindowChooser :windowType="windowType" @change-window-status="changeStatus" />
-    <BulkActionBar :gmails="gmailBox.gmails" />
+    <WindowChooser />
+    <BulkActionBar :gmails="gmailBox.filteredGmails" />
     <table class="max-w-1000px m-auto border-collapse border-t-2 border-black">
         <tbody>
             <tr 
             class="h-14"
-            v-for="email in gmailBox.unArchivedGmails"
+            v-for="email in gmailBox.filteredGmails"
             :key="email.id"
             :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
             @click="changeOpenedEmail(email)">

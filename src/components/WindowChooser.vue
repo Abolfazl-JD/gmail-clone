@@ -1,27 +1,20 @@
 <script lang="ts" setup>
-
-const props = defineProps<{
-    windowType : 'inbox' | 'archived'
-}>()
-
-const emit = defineEmits<{
-    (event : 'change-window-status' , status : 'inbox' | 'archived') : void
-}>()
-
+import { gmailData } from '../stores/mainData'
+const gmailBox = gmailData()
 </script>
 
 <template>
     <div class="flex max-w-1000px mx-auto mb-5 items-center justify-center">
         <button 
         class="functional-btn" 
-        :disabled="windowType === 'inbox'"
-        @click="emit('change-window-status' , 'inbox')">
+        :disabled="gmailBox.windowType === 'inbox'"
+        @click="gmailBox.changeStatus('inbox')">
             Inbox
         </button>
         <button 
         class="functional-btn" 
-        :disabled="windowType === 'archived'"
-        @click="emit('change-window-status' , 'archived')">
+        :disabled="gmailBox.windowType === 'archived'"
+        @click="gmailBox.changeStatus('archived')">
             Archived
         </button>
     </div>
