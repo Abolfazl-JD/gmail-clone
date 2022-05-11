@@ -2,10 +2,13 @@
 // components
 import MailTable from './components/MailTable.vue'
 import SkeletonMailTable from './components/SkeletonMailTable.vue'
+// stores
+import { gmailData } from './stores/mainData'
+const gmailBox = gmailData()
 </script>
 
 <template>
-    <h1 class="text-2xl mb-5">Vmail box</h1>
+    <h1 class="text-2xl mb-5">Vmail {{ gmailBox.windowType }} </h1>
     <Suspense>
         <template #default>
             <MailTable />
