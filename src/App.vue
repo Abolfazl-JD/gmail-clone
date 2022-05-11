@@ -11,7 +11,7 @@ const gmailBox = gmailData()
 <template>
     <h1 class="text-2xl mb-5">Vmail box</h1>
     <h2 class="text-xl mb-5"> {{ gmailBox.selectedGmails.size }} email selected </h2>
-    <BulkActionBar />
+    <BulkActionBar :gmails="gmailBox.gmails" />
     <Suspense>
         <template #default>
             <MailTable />

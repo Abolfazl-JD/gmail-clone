@@ -1,11 +1,17 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+// types
+import type { Gmail } from '@/types'
 // stores
 import { gmailData } from '../stores/mainData'
 const gmailBox = gmailData()
 
-const someSelected = computed(() => gmailBox.selectedGmails.size > 0 && gmailBox.selectedGmails.size < gmailBox.gmails.length)
-const allSelected = computed(() => gmailBox.selectedGmails.size === gmailBox.gmails.length)
+const props = defineProps<{
+    gmails : Gmail[]
+}>()
+
+const someSelected = computed(() => gmailBox.selectedGmails.size > 0 && gmailBox.selectedGmails.size < props.gmails.length)
+const allSelected = computed(() => gmailBox.selectedGmails.size === props.gmails.length)
 const bulkSelect = () => allSelected.value ? gmailBox.unSelectGmails() : gmailBox.selectMultipleGmails()
 </script>
 
