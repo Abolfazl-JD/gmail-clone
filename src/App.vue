@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 // components
 import MailTable from './components/MailTable.vue'
 import SkeletonMailTable from './components/SkeletonMailTable.vue'
+import BulkActionBar from './components/BulkActionBar.vue'
 // stores
 import { gmailData } from './stores/mainData'
 const gmailBox = gmailData()
@@ -10,6 +10,8 @@ const gmailBox = gmailData()
 
 <template>
     <h1 class="text-2xl mb-5">Vmail box</h1>
+    <h2 class="text-xl mb-5"> {{ gmailBox.selectedGmails.size }} email selected </h2>
+    <BulkActionBar />
     <Suspense>
         <template #default>
             <MailTable />

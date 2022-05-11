@@ -20,6 +20,10 @@ export const gmailData = defineStore({
       unArchivedGmails(): Gmail[] {
         return this.sortedGmails.filter(mail => !mail.archived)
       },
+
+      totalGmails: (state) => state.gmails.length,
+      
+      selectedGmailsSize : (state) => state.selectedGmails.size
     },
 
     actions: {
@@ -36,6 +40,16 @@ export const gmailData = defineStore({
       toggleEmailSelected(email: Gmail) {
         if (this.selectedGmails.has(email)) this.selectedGmails.delete(email)
         else this.selectedGmails.add(email)
+      },
+
+      unSelectGmails() {
+        this.selectedGmails.clear()
+      },
+
+      selectMultipleGmails() {
+        for (const gmail of this.gmails) {
+          this.selectedGmails.add(gmail)
+        }
       },
 
       async getGmailData() {
