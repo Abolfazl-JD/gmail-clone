@@ -21,7 +21,8 @@ const bulkSelect = () => allSelected.value ? emailSelection.clear() : emailSelec
 
 const disableMarkRead = computed(() => [...emailSelection.gmails].every(email => email.read))
 const disableMarkUnread = computed(() => [...emailSelection.gmails].every(email => !email.read))
-const disableArchived = computed(() => !emailSelection.gmails.size)
+const disableArchived = computed(() => [...emailSelection.gmails].every(email => email.archived))
+const disableUnArchived = computed(() => [...emailSelection.gmails].every(email => !email.archived))
 
 </script>
 
@@ -52,6 +53,12 @@ const disableArchived = computed(() => !emailSelection.gmails.size)
             @click="emailSelection.selectedOperation(e => e.archived = true)"
             :disabled="disableArchived">
                 Archive
+            </button>
+            <button 
+            class="functional-btn" 
+            @click="emailSelection.selectedOperation(e => e.archived = false)"
+            :disabled="disableUnArchived">
+                Unarchive
             </button>
         </span>
     </div>
