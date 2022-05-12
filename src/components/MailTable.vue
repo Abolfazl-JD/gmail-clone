@@ -28,13 +28,18 @@ const changeOpenedEmail = (mail : Gmail | null) => {
 </script>
 
 <template>
-    <h1 class="text-2xl mb-5">Vmail {{ gmailBox.windowType }} </h1>
+    <div class="text-2xl mb-5 flex justify-center gap-2">
+        <transition name="title-change" mode="out-in">
+            <span v-if="gmailBox.windowType === 'inbox'">Vmail Inbox</span>
+            <span v-else>Vmail Archived</span>
+    </transition>
+    </div>
     <WindowChooser />
     <BulkActionBar :gmails="gmailBox.filteredGmails" />
     <table class="max-w-1000px m-auto border-collapse border-t-2 border-black">
-        <tbody>
+        <transition-group name="row" tag="tbody">
             <tr 
-            class="h-14"
+            class="h-14 gmail-items"
             v-for="email in gmailBox.filteredGmails"
             :key="email.id"
             :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
@@ -60,10 +65,48 @@ const changeOpenedEmail = (mail : Gmail | null) => {
                     </button>
                 </td>
             </tr>
-        </tbody>
+        </transition-group>
     </table>
     <MailModal 
     v-if="openedGmail"
     :email="openedGmail"
     @change-opened-email="changeOpenedEmail" />
 </template>
+
+<style>
+
+.title-change-enter-from {
+    transform: translateY(-20px);
+}
+
+.title-change-leave-to{
+    transform: translateY(20px);
+}
+
+.row-leave-to,
+.row-enter-from,
+.title-change-enter-from,
+.title-change-leave-to{
+    opacity: 0;
+}
+
+.row-enter-from {
+    transform: translateX(-100px);
+}
+
+.row-leave-to{
+    transform: translateX(100px);
+}
+
+.row-leave-active,
+.row-enter-active,
+.row-move,
+.title-change-enter-active,
+.title-change-leave-active{
+    transition: 0.3s ease all;
+}
+
+.row-leave-active{
+    position: absolute
+}
+</style>
