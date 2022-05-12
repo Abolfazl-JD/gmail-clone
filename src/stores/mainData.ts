@@ -11,7 +11,7 @@ export const gmailData = defineStore({
 
     state: () => ({
       gmails: [] as Gmail[],
-      windowType : 'inbox' as 'archived' | 'inbox'
+      windowType : 'inbox' as 'archived' | 'inbox',
     }),
 
     getters: {
@@ -40,9 +40,11 @@ export const gmailData = defineStore({
         this.updateGmailData(readEmail)
       },
 
-      toggleArchiveEmail(archivedEmail: Gmail, archive : boolean) {
+      toggleArchiveEmail(archivedEmail: Gmail, archive: boolean) {
+        const gmailSelection = SelectionGmail()
         archivedEmail.archived = archive
         this.updateGmailData(archivedEmail)
+        gmailSelection.clear()
       },
       
       changeStatus(status: 'inbox' | 'archived') {
