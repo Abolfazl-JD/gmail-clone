@@ -1,5 +1,9 @@
 import { defineStore } from 'pinia'
+// types
 import type { Gmail } from '../types'
+// stores
+import { SelectionGmail } from './EmailSelection'
+// packages
 import axios from 'axios'
 
 export const gmailData = defineStore({
@@ -7,7 +11,6 @@ export const gmailData = defineStore({
 
     state: () => ({
       gmails: [] as Gmail[],
-      selectedGmails: new Set() as Set<Gmail>,
       windowType : 'inbox' as 'archived' | 'inbox'
     }),
 
@@ -41,33 +44,11 @@ export const gmailData = defineStore({
         archivedEmail.archived = true
         this.updateGmailData(archivedEmail)
       },
-
-      toggleEmailSelected(email: Gmail) {
-        if (this.selectedGmails.has(email)) this.selectedGmails.delete(email)
-        else this.selectedGmails.add(email)
-      },
-
-      unSelectGmails() {
-        this.selectedGmails.clear()
-      },
-
-      selectMultipleGmails() {
-        for (const gmail of this.filteredGmails) {
-          this.selectedGmails.add(gmail)
-        }
-      },
-
-      selectedOperation(fn : (e : Gmail) => void) {
-        for (const gmail of this.selectedGmails) {
-          fn(gmail)
-          this.updateGmailData(gmail)
-        }
-        this.unSelectGmails()
-      },
       
-      changeStatus (status : 'inbox' | 'archived') {
+      changeStatus(status: 'inbox' | 'archived') {
+        const gmailSelection = SelectionGmail()
         this.windowType = status
-        this.unSelectGmails()
+        gmailSelection.clear()
       },
 
       async getGmailData() {

@@ -10,6 +10,10 @@ import BulkActionBar from './BulkActionBar.vue'
 import WindowChooser from './WindowChooser.vue'
 // stores
 import { gmailData } from '../stores/mainData'
+import { SelectionGmail } from '../stores/EmailSelection'
+
+// registering stores
+const emailSelection = SelectionGmail()
 const gmailBox = gmailData()
 
 // get data from database 
@@ -37,8 +41,8 @@ const changeOpenedEmail = (mail : Gmail | null) => {
                 <td class="table-items">
                     <input 
                     type="checkbox"
-                    @click.stop="gmailBox.toggleEmailSelected(email)"
-                    :checked="gmailBox.selectedGmails.has(email)">
+                    @click.stop="emailSelection.toggle(email)"
+                    :checked="emailSelection.gmails.has(email)">
                 </td>
                 <td class="table-items"> {{ email.from }}</td>
                 <td class="table-items">

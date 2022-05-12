@@ -3,21 +3,21 @@ import { computed } from 'vue'
 // types
 import type { Gmail } from '@/types'
 // stores
-import { gmailData } from '../stores/mainData'
-const gmailBox = gmailData()
+import { SelectionGmail } from '../stores/EmailSelection'
+const emailSelection = SelectionGmail()
 
 const props = defineProps<{
     gmails : Gmail[]
 }>()
 
-const someSelected = computed(() => gmailBox.selectedGmails.size > 0 && gmailBox.selectedGmails.size < props.gmails.length)
-const allSelected = computed(() => gmailBox.selectedGmails.size === props.gmails.length)
+const someSelected = computed(() => emailSelection.gmails.size > 0 && emailSelection.gmails.size < props.gmails.length)
+const allSelected = computed(() => emailSelection.gmails.size === props.gmails.length)
 
-const bulkSelect = () => allSelected.value ? gmailBox.unSelectGmails() : gmailBox.selectMultipleGmails()
+const bulkSelect = () => allSelected.value ? emailSelection.clear() : emailSelection.selectMultipleGmails()
 
-const disableMarkRead = computed(() => [...gmailBox.selectedGmails].every(email => email.read))
-const disableMarkUnread = computed(() => [...gmailBox.selectedGmails].every(email => !email.read))
-const disableArchived = computed(() => !gmailBox.selectedGmails.size)
+const disableMarkRead = computed(() => [...emailSelection.gmails].every(email => email.read))
+const disableMarkUnread = computed(() => [...emailSelection.gmails].every(email => !email.read))
+const disableArchived = computed(() => !emailSelection.gmails.size)
 
 </script>
 
@@ -33,19 +33,19 @@ const disableArchived = computed(() => !gmailBox.selectedGmails.size)
         <span class="buttons ml-2">
             <button 
             class="functional-btn" 
-            @click="gmailBox.selectedOperation(e => e.read = true)"
+            @click="emailSelection.selectedOperation(e => e.read = true)"
             :disabled="disableMarkRead">
                 Mark read
             </button>
             <button 
             class="functional-btn" 
-            @click="gmailBox.selectedOperation(e => e.read = false)"
+            @click="emailSelection.selectedOperation(e => e.read = false)"
             :disabled="disableMarkUnread">
                 Mark Unread
             </button>
             <button 
             class="functional-btn" 
-            @click="gmailBox.selectedOperation(e => e.archived = true)"
+            @click="emailSelection.selectedOperation(e => e.archived = true)"
             :disabled="disableArchived">
                 Archive
             </button>
