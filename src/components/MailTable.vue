@@ -28,6 +28,7 @@ const changeOpenedEmail = (mail : Gmail | null) => {
 </script>
 
 <template>
+    <h1 class="text-2xl mb-5">Vmail {{ gmailBox.windowType }} </h1>
     <WindowChooser />
     <BulkActionBar :gmails="gmailBox.filteredGmails" />
     <table class="max-w-1000px m-auto border-collapse border-t-2 border-black">
