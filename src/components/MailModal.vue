@@ -30,7 +30,7 @@ interface EmitType{
 const emit = defineEmits<EmitType>()
 
 const archiveMail = () => {
-    gmailBox.archiveEmail(props.email)
+    gmailBox.toggleArchiveEmail(props.email, !props.email.archived)
     emit('change-opened-email' , null)
 }
 
@@ -61,7 +61,9 @@ whenever(j, () => changeOpenedMail('pre'))
     class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
         <div class="relative top-[60px] mx-auto p-5 border  shadow-lg rounded-md bg-white w-11/12 md:w-3/4" >
             <div class="w-full text-left mb-5">
-                <button class="functional-btn" @click="archiveMail"> Archive (e) </button>
+                <button class="functional-btn" @click="archiveMail">
+                    {{ email.archived ? 'unarchive' : 'archive' }} (e) 
+                </button>
                 <button class="functional-btn" @click="gmailBox.toggleEmailRead(email, !email.read)">
                     {{ email.read ? 'Mark unread' : 'Mark read' }} (r) 
                 </button>

@@ -40,8 +40,8 @@ export const gmailData = defineStore({
         this.updateGmailData(readEmail)
       },
 
-      archiveEmail(archivedEmail: Gmail) {
-        archivedEmail.archived = true
+      toggleArchiveEmail(archivedEmail: Gmail, archive : boolean) {
+        archivedEmail.archived = archive
         this.updateGmailData(archivedEmail)
       },
       

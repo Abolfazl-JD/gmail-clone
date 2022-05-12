@@ -4,7 +4,11 @@ import { computed } from 'vue'
 import type { Gmail } from '@/types'
 // stores
 import { SelectionGmail } from '../stores/EmailSelection'
+import { gmailData } from '@/stores/mainData'
+
+// register stores
 const emailSelection = SelectionGmail()
+const gmailBox = gmailData()
 
 const props = defineProps<{
     gmails : Gmail[]
