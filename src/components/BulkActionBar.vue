@@ -27,7 +27,7 @@ const disableUnArchived = computed(() => [...emailSelection.gmails].every(email 
 </script>
 
 <template>
-    <div class="max-w-1000px text-left mx-auto mb-5">
+    <div class="max-w-1000px text-left mx-auto mb-5 flex mt-10 md:mt-0">
         <span class="checkbox">
             <input 
             type="checkbox" 
@@ -35,7 +35,7 @@ const disableUnArchived = computed(() => [...emailSelection.gmails].every(email 
             :class="[someSelected ? 'partial-check' : '']"
             @click="bulkSelect">
         </span>
-        <span class="buttons ml-2">
+        <span class="buttons ml-2 flex flex-wrap gap-1 justify-center md:block">
             <button 
             class="functional-btn" 
             @click="emailSelection.selectedOperation(e => e.read = true)"

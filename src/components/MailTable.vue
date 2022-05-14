@@ -28,45 +28,48 @@ const changeOpenedEmail = (mail : Gmail | null) => {
 </script>
 
 <template>
-    <div class="text-2xl mb-5 flex justify-center gap-2">
-        <transition name="title-change" mode="out-in">
-            <span v-if="gmailBox.windowType === 'inbox'">Vmail Inbox</span>
-            <span v-else>Vmail Archived</span>
-    </transition>
-    </div>
-    <WindowChooser />
-    <BulkActionBar :gmails="gmailBox.filteredGmails" />
-    <table class="max-w-1000px m-auto border-collapse border-t-2 border-black">
-        <transition-group name="row" tag="tbody">
-            <tr 
-            class="h-14 gmail-items"
+    <div class="px-2 md:px-0">
+        <div class="text-2xl mb-5 flex justify-center gap-2">
+            <transition name="title-change" mode="out-in">
+                <span v-if="gmailBox.windowType === 'inbox'">Vmail Inbox</span>
+                <span v-else>Vmail Archived</span>
+            </transition>
+        </div>
+        <WindowChooser />
+        <BulkActionBar :gmails="gmailBox.filteredGmails" />
+        <transition-group class="max-w-1000px m-auto border-collapse border-t-2 border-black" name="row" tag="div">
+            <div 
+            class="md:grid grid-cols-12 border-b border-gray-700 py-2 px-1 w-full"
             v-for="email in gmailBox.filteredGmails"
             :key="email.id"
             :class="['cursor-pointer', email.read ? 'bg-gray-200' : '']"
             @click="changeOpenedEmail(email)">
-                <td class="table-items">
+                <div class="col-span-3 text-left space-x-3 flex">
                     <input 
                     type="checkbox"
                     @click.stop="emailSelection.toggle(email)"
                     :checked="emailSelection.gmails.has(email)">
-                </td>
-                <td class="table-items"> {{ email.from }}</td>
-                <td class="table-items">
-                    <p class="overflow-y-hidden m-0 max-h-1.2em">
-                        <strong> {{ email.subject.slice(0 , 40) }} ... </strong> - {{ email.body }}
-                    </p>
-                </td>
-                <td class="table-items w-120px"> {{ format(new Date(email.sentAt), 'MMM do yyyy') }} </td>
-                <td class="table-items">
+                    <span class="overflow-hidden whitespace-nowrap overflow-ellipsis"> {{ email.from }}</span>
+                </div>
+                <div class="col-span-6 h-full flex items-center text-left overflow-hidden whitespace-nowrap overflow-ellipsis text-sm mt-2 md:(text-15px mt-0)">
+                    <strong> {{ email.subject }}</strong>
+                    <span class="hidden md:inline-block overflow-hidden whitespace-nowrap overflow-ellipsis"> - {{ email.body }}</span>
+                </div>
+                <div class="md:hidden pt-1 space-x-3 overflow-hidden whitespace-nowrap overflow-ellipsis text-left w-full flex justify-between items-center">
+                    <span class="text-sm overflow-hidden whitespace-nowrap overflow-ellipsis"> {{ email.body }} </span>
+                    <span class="text-xs text-red-800"> {{ format(new Date(email.sentAt), 'MMM do yyyy') }} </span>
+                </div>
+                <div class="col-span-2 tex-center hidden md:block"> {{ format(new Date(email.sentAt), 'MMM do yyyy') }} </div>
+                <div>
                     <button 
-                    class="bg-gray-500 px-2 py-1 text-white"
+                    class="bg-gray-500 px-2 py-1 hidden md:block text-white col-span-1"
                     @click.stop="gmailBox.toggleArchiveEmail(email, !email.archived)">
                         {{ email.archived ? 'unarchive' : 'archive' }}
                     </button>
-                </td>
-            </tr>
+                </div>
+            </div>
         </transition-group>
-    </table>
+    </div>
     <MailModal 
     v-if="openedGmail"
     :email="openedGmail"

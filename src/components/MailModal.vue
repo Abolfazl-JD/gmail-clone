@@ -59,9 +59,9 @@ whenever(j, () => changeOpenedMail('pre'))
     <div 
     @click.self="emit('change-opened-email' , null)"
     class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-        <div class="relative top-[60px] mx-auto p-5 border  shadow-lg rounded-md bg-white w-11/12 md:w-3/4" >
-            <div class="w-full text-left mb-5">
-                <button class="functional-btn" @click="archiveMail">
+        <div class="relative top-[60px] mx-auto sm:p-5 py-2 border  shadow-lg rounded-md bg-white w-11/12 md:w-3/4" >
+            <div class="w-full text-left mb-5 flex space-y-2 flex-wrap justify-center items-center">
+                <button class="functional-btn self-end" @click="archiveMail">
                     {{ email.archived ? 'unarchive' : 'archive' }} (e) 
                 </button>
                 <button class="functional-btn" @click="gmailBox.toggleEmailRead(email, !email.read)">
@@ -70,7 +70,7 @@ whenever(j, () => changeOpenedMail('pre'))
                 <button class="functional-btn"  @click="changeOpenedMail('pre')"> Older (j) </button>
                 <button class="functional-btn" @click="changeOpenedMail('next')"> Newer (k)</button>
             </div>
-            <div class="email-display px-10 py-5">
+            <div class="email-display px-2 sm:px-10 py-5">
                 <h2 class="mb-5 text-lg">
                     Subject: <strong> {{ email.subject }} </strong>
                 </h2>
