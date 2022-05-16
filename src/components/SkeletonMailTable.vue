@@ -42,11 +42,11 @@
 
 <style>
 .skeleton {
-  animation: skeleton-loading 0.5s linear infinite alternate;
+  animation: skeleton-loading 0.8s linear infinite alternate;
 }
 
 .input-skeleton {
-    animation: input-loading 0.5s linear infinite alternate;
+    animation: input-loading 0.8s linear infinite alternate;
 }
 
 @keyframes skeleton-loading {
@@ -55,7 +55,7 @@
   }
 
   100% {
-    background-color: hsl(200, 20%, 85%);
+    background-color: hsl(200, 20%, 90%);
   }
 }
 
@@ -65,7 +65,7 @@
   }
 
   100% {
-    border-color: hsl(200, 20%, 85%);
+    border-color: hsl(200, 20%, 90%);
   }
 }
 </style>
