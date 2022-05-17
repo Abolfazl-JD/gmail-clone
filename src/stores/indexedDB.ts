@@ -7,34 +7,36 @@ export const indexedDb = defineStore({
     state: () => ({
         database: null as null | IDBDatabase
     }),
-
+    
     actions: {
         async getDatabase() : Promise<IDBDatabase> {
-            return new Promise((resolve, reject) => {
-                if (this.database) {
-                    resolve(this.database)
-                }
-
-                let request = window.indexedDB.open('gmailBox', 1)
-                request.onerror = event => {
-                    console.error('ERROR: unable to open the database', event)
-                    reject('ERROR')
-                }
-                request.onsuccess = () => {
-                    this.database = request.result
-                    resolve(this.database)
-                }
-  
-                request.onupgradeneeded = () => {
-                    let database = request.result
-                    database.createObjectStore('gmailBox', {
-                        autoIncrement: true,
-                        keyPath : 'id'
-                    })
-                }
+            return new Promise((resolve, reject) => { 
+                setTimeout(() => {
+                    if (this.database) {
+                        resolve(this.database)
+                    }
+    
+                    let request = window.indexedDB.open('gmailBox', 1)
+                    request.onerror = event => {
+                        console.error('ERROR: unable to open the database', event)
+                        reject('ERROR')
+                    }
+                    request.onsuccess = () => {
+                        this.database = request.result
+                        resolve(this.database)
+                    }
+      
+                    request.onupgradeneeded = () => {
+                        let database = request.result
+                        database.createObjectStore('gmailBox', {
+                            autoIncrement: true,
+                            keyPath : 'id'
+                        })
+                    }
+                }, 5000)
             })
         },
-  
+
         async getGmailsStore() : Promise<Gmail[]>{
             this.database = await this.getDatabase()
             return new Promise((resolve, reject) => {
