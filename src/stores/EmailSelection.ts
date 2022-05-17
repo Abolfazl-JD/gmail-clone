@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import type { Gmail } from '../types'
 // stores
 import { gmailData } from './mainData'
+import { indexedDb } from './indexedDB'
 
 export const SelectionGmail = defineStore({
     id: 'gmail-selection',
@@ -32,10 +33,11 @@ export const SelectionGmail = defineStore({
             }
         },
 
-        selectedOperation(fn : (e : Gmail) => void) {
+        selectedOperation(fn: (e: Gmail) => void) {
+            const database = indexedDb()
             for (const gmail of this.gmails) {
                 fn(gmail)
-                this.gmailBox.updateGmailData(gmail)
+                database.saveData(gmail)
             }
             this.clear()
         },

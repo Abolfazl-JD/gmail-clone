@@ -7,7 +7,7 @@ export const indexedDb = defineStore({
     state: () => ({
         database: null as null | IDBDatabase
     }),
-    
+
     actions: {
         async getDatabase() : Promise<IDBDatabase> {
             return new Promise((resolve, reject) => {

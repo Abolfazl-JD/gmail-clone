@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 // packages
 import { format } from 'date-fns'
 // Types
@@ -17,7 +17,7 @@ const emailSelection = SelectionGmail()
 const gmailBox = gmailData()
 
 // get data from database 
-await gmailBox.getGmailData()
+await gmailBox.getGmailBoxData()
 
 const openedGmail = ref<Gmail | null>(null)
 const changeOpenedEmail = (mail : Gmail | null) => {

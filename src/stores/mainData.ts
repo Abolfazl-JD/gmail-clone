@@ -3,8 +3,7 @@ import { defineStore } from 'pinia'
 import type { Gmail } from '../types'
 // stores
 import { SelectionGmail } from './EmailSelection'
-// packages
-import axios from 'axios'
+import { indexedDb } from './indexedDB'
 
 export const gmailData = defineStore({
     id: 'gmail-data',
@@ -35,15 +34,18 @@ export const gmailData = defineStore({
     },
 
     actions: {
-      toggleEmailRead(readEmail: Gmail, read : boolean) {
+      toggleEmailRead(readEmail: Gmail, read: boolean) {
+        const database = indexedDb()
         readEmail.read = read
-        this.updateGmailData(readEmail)
+        database.saveData(readEmail)
       },
 
       toggleArchiveEmail(archivedEmail: Gmail, archive: boolean) {
         const gmailSelection = SelectionGmail()
+        const database = indexedDb()
+        
         archivedEmail.archived = archive
-        this.updateGmailData(archivedEmail)
+        database.saveData(archivedEmail)
         gmailSelection.clear()
       },
       
@@ -53,14 +55,9 @@ export const gmailData = defineStore({
         gmailSelection.clear()
       },
 
-      async getGmailData() {
-        await axios.get('http://localhost:3000/emails').then(res => {
-          this.gmails = res.data
-        })
-      },
-
-       updateGmailData(updatedEmail : Gmail) {
-         axios.put(`http://localhost:3000/emails/${updatedEmail.id}`, updatedEmail)
+      async getGmailBoxData() {
+        const database = indexedDb()
+        this.gmails = await database.getGmailsStore()
       }
     }
 })

@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
     <h1 class="skeleton w-24 h-5 rounded-lg mb-5 block mx-auto"></h1>
     <div class="max-w-1000px flex mx-auto items-center justify-center gap-2 mb-5">
