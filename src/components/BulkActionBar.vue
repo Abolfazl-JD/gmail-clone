@@ -4,11 +4,7 @@ import { computed } from 'vue'
 import type { Gmail } from '@/types'
 // stores
 import { SelectionGmail } from '../stores/EmailSelection'
-import { gmailData } from '@/stores/mainData'
-
-// register stores
 const emailSelection = SelectionGmail()
-const gmailBox = gmailData()
 
 const props = defineProps<{
     gmails : Gmail[]
@@ -27,7 +23,7 @@ const disableUnArchived = computed(() => [...emailSelection.gmails].every(email 
 </script>
 
 <template>
-    <div class="max-w-1000px text-left mx-auto mb-5 flex mt-10 md:mt-0">
+    <div class="max-w-1000px text-left mx-auto mb-5 hidden mt-10 sm:flex md:mt-0">
         <span class="checkbox">
             <input 
             type="checkbox" 

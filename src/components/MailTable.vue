@@ -8,6 +8,7 @@ import type { Gmail } from '../types'
 import MailModal from './MailModal.vue'
 import BulkActionBar from './BulkActionBar.vue'
 import WindowChooser from './WindowChooser.vue'
+import DropDown from './DropDown.vue'
 // stores
 import { gmailData } from '../stores/mainData'
 import { SelectionGmail } from '../stores/EmailSelection'
@@ -37,6 +38,7 @@ const changeOpenedEmail = (mail : Gmail | null) => {
         </div>
         <WindowChooser />
         <BulkActionBar :gmails="gmailBox.filteredGmails" />
+        <DropDown />
         <transition-group class="max-w-1000px m-auto border-collapse border-t-2 border-black" name="row" tag="div">
             <div 
             class="md:grid grid-cols-12 border-b border-gray-700 py-2 px-1 w-full"
