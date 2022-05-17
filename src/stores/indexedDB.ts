@@ -5,7 +5,7 @@ export const indexedDb = defineStore({
     id: "database",
     
     state: () => ({
-        database: null as null | IDBDatabase
+        database: null as null | IDBDatabase,
     }),
     
     actions: {
