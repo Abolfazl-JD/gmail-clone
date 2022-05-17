@@ -5,7 +5,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["vite-plugin-pwa/client"],
+    "lib": ["ESNext", "DOM", "WebWorker"]
   },
 
   "references": [
@@ -14,3 +16,4 @@
     }
   ]
 }
+
