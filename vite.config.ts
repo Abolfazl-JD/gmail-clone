@@ -18,8 +18,8 @@ export default defineConfig({
       includeAssets: ["/favicon.png"],
       strategies: "injectManifest",
       manifest: {
-        name: "Test Project",
-        short_name: "Test",
+        name: "Gmail clone",
+        short_name: "Gmail",
         theme_color: "#ffffff",
         start_url: "/",
         display: "standalone",
