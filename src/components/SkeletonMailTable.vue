@@ -8,7 +8,10 @@
         <div>
             <p class="input-skeleton border-6 border-solid w-7 h-7 rounded-sm"></p>
         </div>
-        <div class="buttons ml-2 flex flex-wrap gap-4 justify-center">
+        <div class="buttons ml-2 flex-wrap gap-1 justify-center flex pl-5 sm:hidden">
+            <p class="skeleton w-20 h-8 rounded-sm"></p>
+        </div>
+        <div class="buttons ml-2 hidden sm:flex flex-wrap gap-4 justify-center">
             <p class="skeleton w-20 h-8 rounded-sm"></p>
             <p class="skeleton w-20 h-8 rounded-sm"></p>
             <p class="skeleton w-20 h-8 rounded-sm"></p>
