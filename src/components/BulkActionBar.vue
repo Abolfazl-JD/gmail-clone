@@ -2,6 +2,9 @@
 import { computed } from 'vue'
 // types
 import type { Gmail } from '@/types'
+// components 
+import LargeSizeActionBar from './LargeSizeActionBar.vue'
+import DropDown from './DropDown.vue'
 // stores
 import { SelectionGmail } from '../stores/EmailSelection'
 const emailSelection = SelectionGmail()
@@ -15,15 +18,10 @@ const allSelected = computed(() => emailSelection.gmails.size === props.gmails.l
 
 const bulkSelect = () => allSelected.value ? emailSelection.clear() : emailSelection.selectMultipleGmails()
 
-const disableMarkRead = computed(() => [...emailSelection.gmails].every(email => email.read))
-const disableMarkUnread = computed(() => [...emailSelection.gmails].every(email => !email.read))
-const disableArchived = computed(() => [...emailSelection.gmails].every(email => email.archived))
-const disableUnArchived = computed(() => [...emailSelection.gmails].every(email => !email.archived))
-
 </script>
 
 <template>
-    <div class="max-w-1000px text-left mx-auto mb-5 hidden mt-10 sm:flex md:mt-0">
+    <div class="max-w-1000px text-left mx-auto mb-5 mt-10 flex md:mt-0">
         <span class="checkbox">
             <input 
             type="checkbox" 
@@ -31,31 +29,7 @@ const disableUnArchived = computed(() => [...emailSelection.gmails].every(email 
             :class="[someSelected ? 'partial-check' : '']"
             @click="bulkSelect">
         </span>
-        <span class="buttons ml-2 flex flex-wrap gap-1 justify-center md:block">
-            <button 
-            class="functional-btn" 
-            @click="emailSelection.selectedOperation(e => e.read = true)"
-            :disabled="disableMarkRead">
-                Mark read
-            </button>
-            <button 
-            class="functional-btn" 
-            @click="emailSelection.selectedOperation(e => e.read = false)"
-            :disabled="disableMarkUnread">
-                Mark Unread
-            </button>
-            <button 
-            class="functional-btn" 
-            @click="emailSelection.selectedOperation(e => e.archived = true)"
-            :disabled="disableArchived">
-                Archive
-            </button>
-            <button 
-            class="functional-btn" 
-            @click="emailSelection.selectedOperation(e => e.archived = false)"
-            :disabled="disableUnArchived">
-                Unarchive
-            </button>
-        </span>
+        <LargeSizeActionBar />
+        <DropDown/>
     </div>
 </template>
