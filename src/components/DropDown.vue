@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 // composables
 import bulkActions from '@/composables/BulkAction'
 // stores
@@ -9,6 +9,7 @@ const emailSelection = SelectionGmail()
 const { disableArchived , disableMarkRead , disableMarkUnread , disableUnArchived } = bulkActions()
 
 const showDropDownMenu = ref(false)
+const visibleDropDown = computed(() => showDropDownMenu.value && emailSelection.gmails.size !== 0)
 </script>
 
 <template>
@@ -24,13 +25,20 @@ const showDropDownMenu = ref(false)
             </svg>
         </button>
         <ul 
-        :class="['absolute', 'text-gray-700', 'z-10', 'top-33px', 'rounded-tr', 'rounded-tl', 'border', 'border-gray-700', 'border-t-0' ,
-        {'hidden' : !emailSelection.gmails.size}]" 
-        v-if="showDropDownMenu">
-            <li :class="['list-items', {'disable-li' : disableMarkRead}]">Read</li>
-            <li class="list-items">unread</li>
-            <li class="list-items">archive</li>
-            <li class="list-items">unarchive</li>
+        :class="['absolute', 'text-gray-700', 'z-10', 'top-33px', 'rounded-tr', 'rounded-tl', 'border', 'border-gray-700', 'border-t-0']" 
+        v-if="visibleDropDown">
+            <li
+            @click="emailSelection.selectedOperation(e => e.read = true)" 
+            :class="['list-items', {'disable-li' : disableMarkRead}]">Mark Read</li>
+            <li
+            @click="emailSelection.selectedOperation(e => e.read = false)" 
+            :class="['list-items', {'disable-li' : disableMarkUnread}]">Mark unread</li>
+            <li
+            @click="emailSelection.selectedOperation(e => e.archived = true)" 
+            :class="['list-items', {'disable-li' : disableArchived}]">archive</li>
+            <li 
+            @click="emailSelection.selectedOperation(e => e.archived = false)"
+            :class="['list-items', {'disable-li' : disableUnArchived}]">unarchive</li>
         </ul>
     </div>
 </template>
