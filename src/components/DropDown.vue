@@ -10,6 +10,11 @@ const { disableArchived , disableMarkRead , disableMarkUnread , disableUnArchive
 
 const showDropDownMenu = ref(false)
 const visibleDropDown = computed(() => showDropDownMenu.value && emailSelection.gmails.size !== 0)
+
+emailSelection.$subscribe((mutation, state) => {
+    // when there aren't any selected items so close the dropdown
+    if(state.gmails.size === 0) showDropDownMenu.value = false
+})
 </script>
 
 <template>
